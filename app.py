@@ -16,8 +16,7 @@ from models import db, Outlet,OutletReviews,ClientReviews
 
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"])
-CORS(app, origins=["https://file-share-frontend-chi.vercel.app"])
+CORS(app, origins=["https://file-share-frontend-chi.vercel.app","http://localhost:3000"])
 
 app.config['SECRET_KEY'] = 'password'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
