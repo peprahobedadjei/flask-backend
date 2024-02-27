@@ -19,9 +19,10 @@ app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
 
 app.config['SECRET_KEY'] = 'password'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://appsnetic_user:Usjgghl8YqBZ5cUBq0u9kYDGzWp8VZif@dpg-cneutaol5elc73ddoo10-a.oregon-postgres.render.com/appsnetic"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://appsnetic_user:Usjgghl8YqBZ5cUBq0u9kYDGzWp8VZif@dpg-cneutaol5elc73ddoo10-a.oregon-postgres.render.com/appsnetic"
 
 SQLALCHEMY_TRACK_MODIFICATION = False
 SQLALCHEMY_ECHO = True
