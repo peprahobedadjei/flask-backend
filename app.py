@@ -28,7 +28,7 @@ SQLALCHEMY_ECHO = True
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 SERVICE_ACCOUNT_FILE ='service_account.json'
-PARENT_FOLDER_ID ="1j8zCQ_PqZw-GPNTg6M4AwCdG_EZafXKf"
+PARENT_FOLDER_ID ="11l9rxQFj9fTo8rFsRXVioBnvYFEEmDok"
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'docx'}
 
 
@@ -55,7 +55,7 @@ def register_outletPartner():
     outletPassword = request.json["outletPassword"]
     outletUrl = request.json["outletUrl"]
 
-    outlet_exists = Outlet.query.filter_by(outletPhoneNumber=outletPhoneNumber).first() is not None
+    outlet_exists = Outlet.query.filter_by(outletPhoneNumber=outletPhoneNumber).first()
 
     if outlet_exists:
         return jsonify({
@@ -65,8 +65,7 @@ def register_outletPartner():
             }
         }), 409
     else:
-        PASSWORD_CONST= outletPassword
-        hashed_password = bcrypt.generate_password_hash(outletPassword)
+        hashed_password = bcrypt.generate_password_hash(outletPassword).decode('utf-8')  # Ensure the hash is a string
         new_outlet = Outlet(outletName=outletName, outletOwnerName=outletOwnerName, landMark=landMark,
                              outletPhoneNumber=outletPhoneNumber, outletPassword=hashed_password, outletUrl=outletUrl)
         db.session.add(new_outlet)
@@ -77,15 +76,14 @@ def register_outletPartner():
         return jsonify({
             "success": True,
             "body": {
-                "outletName":new_outlet.outletName,
+                "outletName": new_outlet.outletName,
                 "outletOwnerName": new_outlet.outletOwnerName,
                 "landMark": new_outlet.landMark,
                 "outletPhoneNumber": new_outlet.outletPhoneNumber,
-                "outletPassword":PASSWORD_CONST,
-                "outletUrl":new_outlet.outletUrl,
+                "outletPassword": outletPassword, 
+                "outletUrl": new_outlet.outletUrl,
             }
         }), 200
-        
 # Login //////////////////////////////////////////////////////////////////////////////////////////////
 
 @app.route("/login", methods=["POST"])
@@ -103,7 +101,7 @@ def login_outletPartner():
             }
         }), 401
     else:
-        session["outleta_id"] = outlet_user.id
+        session["outlet_id"] = outlet_user.id
 
         return jsonify({
             "success": True,
