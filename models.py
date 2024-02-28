@@ -8,7 +8,7 @@ def get_uuid():
 
 class Outlet(db.Model):
     __tablename__ = "outlets"
-    id = db.Column(db.String(11), primary_key=True, unique=True, default=get_uuid)
+    id = db.Column(db.String(255), primary_key=True, unique=True, default=get_uuid)
     outletName = db.Column(db.String(255), unique=True)
     outletOwnerName = db.Column(db.String(255), unique=True)
     landMark = db.Column(db.String(255), unique=True)
