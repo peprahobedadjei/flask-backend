@@ -70,7 +70,6 @@ def register_outletPartner():
                              outletPhoneNumber=outletPhoneNumber, outletPassword=hashed_password, outletUrl=outletUrl)
         db.session.add(new_outlet)
         db.session.commit()
-
         session["outlet_id"] = new_outlet.id
 
         return jsonify({
